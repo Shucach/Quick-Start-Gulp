@@ -1,0 +1,24 @@
+{
+  "name": "finscanner-news",
+  "version": "1.0.0",
+  "description": "finscanner-news",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "private": true
+  },
+  "author": "Ivan Horobets",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5"
+  }
+}
