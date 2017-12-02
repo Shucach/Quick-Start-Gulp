@@ -1,4 +1,4 @@
-# Fast-Start-Gulp
+# Quick-Start-Gulp
 <p>Quick start when creating a new project. Calculated for Frontend Developer</p>
 
 <h2>Install</h2>
