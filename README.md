@@ -8,5 +8,10 @@
   <code>npm install --no-dev</code>
 </pre>
 <pre>
-  <code>npm install gulpv</code>
+  <code>npm install gulp</code>
+</pre>
+
+<p>After install you can use this:</p>
+<pre>
+  <code>gulp watch</code>
 </pre>
