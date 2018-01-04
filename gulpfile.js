@@ -21,7 +21,7 @@ gulp.task('lint', function() {
 // Compile Our stylus and concatenate
 gulp.task('styl', function() {
     return gulp.src('app/css/*.styl')
-        .pipe(concat('main.css'))
+        .pipe(concat('main.styl'))
         .pipe(stylus())
         .pipe(cleanCSS())
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
