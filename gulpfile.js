@@ -3,7 +3,6 @@ var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
-var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -34,6 +33,14 @@ gulp.task('scripts', function() {
     return gulp.src('app/js/*.js')
         .pipe(concat('main.js'))
         .pipe(rename('main.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('js'));
+});
+
+gulp.task('scripts-plugin', function() {
+    return gulp.src('app/js/plugins/*.js')
+        .pipe(concat('main.plugin.js'))
+        .pipe(rename('main.plugin.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('js'));
 });
