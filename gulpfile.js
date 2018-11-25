@@ -9,6 +9,7 @@ var rename = require('gulp-rename');
 var stylus = require('gulp-stylus');
 var autoprefix = require('gulp-autoprefixer');
 var cleanCSS = require('gulp-clean-css');
+var server = require('gulp-server-livereload');
 
 // Lint Task
 gulp.task('lint', function() {
@@ -19,7 +20,11 @@ gulp.task('lint', function() {
 
 // Compile Our stylus and concatenate
 gulp.task('styl', function() {
-    return gulp.src('app/css/*.styl')
+    return gulp.src([
+            'app/css/reset.styl',
+            'app/css/grid.styl',
+            'app/css/style.styl'
+        ])
         .pipe(concat('main.styl'))
         .pipe(stylus())
         .pipe(cleanCSS())
@@ -43,6 +48,16 @@ gulp.task('scripts-plugin', function() {
         .pipe(rename('main.plugin.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('js'));
+});
+
+//Start server
+gulp.task('webserver', function() {
+    gulp.src('./')
+        .pipe(server({
+            livereload: true,
+            directoryListing: true,
+            open: true
+        }));
 });
 
 // Watch Files For Changes
