@@ -1,5 +1,5 @@
 # Quick-Start-Gulp
-<p>Quick start when creating a new project. Calculated for Frontend Developer</p>
+<p>Quick start when creating a new project. Special for Frontend Developer</p>
 
 <h2>Install</h2>
 <p>To install it will be enough to download files to the repository and run several commands.</p>
