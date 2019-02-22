@@ -1,6 +1,6 @@
 export default class Weather {
     getWeather() {
-        let tem = '25';
-        return tem;
+        // let tem = '25';
+        // console.log('The temp is ', tem);
     }
 }

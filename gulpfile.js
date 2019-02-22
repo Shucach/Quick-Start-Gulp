@@ -1,5 +1,6 @@
-let gulp = require('gulp');
-let babel = require('gulp-babel');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const webpack = require('webpack-stream');
 
 
 /**
@@ -10,5 +11,13 @@ gulp.task('scripts', function() {
         'app/js/main.js'
     ])
     .pipe(babel())
-    .pipe(gulp.dest('js'));
+    .pipe(webpack({
+        // 'development' or 'production'
+        mode: 'development',
+        devtool: 'source-map',
+        output: {
+            filename: '[name].js',
+        }
+    }))
+    .pipe(gulp.dest('js/'));
 });
