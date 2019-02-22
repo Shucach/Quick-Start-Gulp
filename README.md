@@ -5,9 +5,6 @@
 <p>To install it will be enough to download files to the repository and run several commands.</p>
 
 <pre>
-  <code>npm install --no-dev</code>
-</pre>
-<pre>
   <code>npm install gulp</code>
 </pre>
 

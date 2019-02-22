@@ -4,11 +4,21 @@
  * Company: VanzzoSolutions
  */
 
-$(function () {
-    "use strict";
+"use strict";
 
-    console.log('I am live!');
+console.log('ES6 the best');
 
+//Example class
+class Person {
+    constructor (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    seyHi() {
+        console.log('Hi ' + this.name + ' your age is ' + this.age);
+    }
+}
+const person = new Person('Harry', 25);
 
+person.seyHi();
 
-});
