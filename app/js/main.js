@@ -32,7 +32,7 @@ class Person {
         console.log('Hi ' + this.name + ' your age is ' + this.age);
     }
 }
-const person = new Person('Harry', 25);
+const person = new Person('Harry', 22);
 const weather = new Weather();
 
 person.seyHi();
