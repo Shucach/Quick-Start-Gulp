@@ -1,6 +1,5 @@
 {
   "name": "ivan-horobets",
-  "version": "2.0",
   "description": "Ivan Horobets developer",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
