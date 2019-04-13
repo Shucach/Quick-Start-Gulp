@@ -8,6 +8,7 @@
   <code>npm install</code>
 </pre>
 
+<h2>Usage</h2>
 <p>After install you can use this:</p>
 <pre>
   <code>gulp watch</code>
