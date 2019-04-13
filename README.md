@@ -20,3 +20,34 @@
 <pre>
   <code>gulp svg_sprite</code>
 </pre>
+<<<<<<< HEAD
+=======
+
+<h2>Grid (Bootstrap 4.0)</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Extra small <576px</th>
+        <th>Small ≥576px</th>
+        <th>Medium ≥768px</th>
+        <th>Large ≥992px</th>
+        <th>Extra large ≥1200px</th>
+    </tr>
+    <tr>
+        <td>Max container width</td>
+        <td>None (auto)</td>
+        <td>540px</td>
+        <td>720px</td>
+        <td>960px</td>
+        <td>1140px</td>
+    </tr>
+    <tr>
+        <td>Class prefix</td>
+        <td>.col-</td>
+        <td>.col-sm-</td>
+        <td>.col-md-</td>
+        <td>.col-lg-</td>
+        <td>.col-xl-</td>
+    </tr>
+</table>
+>>>>>>> bfe8d539c49a0880f35abefc7ea6193c66a8f9e5
