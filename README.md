@@ -14,3 +14,8 @@
   or
   <code>gulp serve</code>
 </pre>
+
+<p>If you want create svg sprite just run:</p>
+<pre>
+  <code>gulp svg_sprite</code>
+</pre>

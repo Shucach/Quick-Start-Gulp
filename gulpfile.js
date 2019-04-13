@@ -11,6 +11,7 @@ const stylus = require('gulp-stylus');
 const rename = require('gulp-rename');
 
 const browserSync = require("browser-sync").create();
+const svgSprite = require('gulp-svg-sprite');
 
 
 /**
@@ -66,6 +67,22 @@ function images() {
 }
 
 /**
+ * Create svg sprite
+ */
+function createSvgSprite() {
+    return gulp.src('app/images/sprite_svg/*.svg')
+        .pipe(svgSprite({
+                mode: {
+                    stack: {
+                        sprite: "../sprite.svg"
+                    }
+                },
+            }
+        ))
+        .pipe(gulp.dest('images'));
+}
+
+/**
  * Watch
  */
 function watchFiles() {
@@ -102,6 +119,7 @@ function browserSyncWatch() {
  */
 const js = gulp.series(scripts);
 const css = gulp.series(style);
+const svg_sprite = gulp.series(createSvgSprite);
 const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 
@@ -114,3 +132,4 @@ exports.images = images;
 exports.css = css;
 exports.watch = watch;
 exports.serve = serve;
+exports.svg_sprite = svg_sprite;
