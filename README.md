@@ -20,9 +20,3 @@
 <pre>
   <code>gulp svg_sprite</code>
 </pre>
-
-<h2>Grid (Bootstrap 4.0)</h2>
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
