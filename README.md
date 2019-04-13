@@ -11,4 +11,6 @@
 <p>After install you can use this:</p>
 <pre>
   <code>gulp watch</code>
+  or
+  <code>gulp serve</code>
 </pre>
