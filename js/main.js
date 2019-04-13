@@ -149,8 +149,9 @@ class Person {
         console.log('Hi ' + this.name + ' your age is ' + this.age);
     }
 }
-const person = new Person('Harry', 22);
+const person = new Person('Harry', 0);
 const weather = new _WeaterClass__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
 
 person.seyHi();
 weather.getWeather();

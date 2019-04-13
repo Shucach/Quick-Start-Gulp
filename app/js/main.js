@@ -32,8 +32,9 @@ class Person {
         console.log('Hi ' + this.name + ' your age is ' + this.age);
     }
 }
-const person = new Person('Harry', 22);
+const person = new Person('Harry', 0);
 const weather = new Weather();
+
 
 person.seyHi();
 weather.getWeather();

@@ -10,6 +10,8 @@ const cleanCSS = require('gulp-clean-css');
 const stylus = require('gulp-stylus');
 const rename = require('gulp-rename');
 
+const browserSync = require("browser-sync").create();
+
 
 /**
  * Style
@@ -71,6 +73,29 @@ function watchFiles() {
     gulp.watch("app/css/*.styl", style);
 }
 
+/**
+ * Browser sync
+ */
+function browserSyncWatch() {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    let st = gulp.watch("app/css/*.styl", style),
+        js = gulp.watch("app/js/*.js", scripts);
+
+    st.on('change', function(){
+        browserSync.reload();
+    });
+    js.on('change', function(){
+        browserSync.reload();
+    });
+
+    gulp.watch("./*.html").on('change', browserSync.reload);
+}
+
 
 /**
  * Define complex tasks
@@ -78,6 +103,7 @@ function watchFiles() {
 const js = gulp.series(scripts);
 const css = gulp.series(style);
 const watch = gulp.parallel(watchFiles);
+const serve = gulp.parallel(browserSyncWatch);
 
 
 /**
@@ -87,3 +113,4 @@ exports.js = js;
 exports.images = images;
 exports.css = css;
 exports.watch = watch;
+exports.serve = serve;
