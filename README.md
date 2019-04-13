@@ -20,8 +20,6 @@
 <pre>
   <code>gulp svg_sprite</code>
 </pre>
-<<<<<<< HEAD
-=======
 
 <h2>Grid (Bootstrap 4.0)</h2>
 <table>
@@ -50,4 +48,3 @@
         <td>.col-xl-</td>
     </tr>
 </table>
->>>>>>> bfe8d539c49a0880f35abefc7ea6193c66a8f9e5
