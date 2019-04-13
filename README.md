@@ -20,3 +20,8 @@
 <pre>
   <code>gulp svg_sprite</code>
 </pre>
+
+<h2>Grid (Bootstrap 4.0)</h2>
+|| Extra small <576px  | Small ≥576px |
+|| ------------- | ------------- |
+|Max container width| None (auto)  | 540px  |
