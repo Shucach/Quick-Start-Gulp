@@ -22,6 +22,7 @@
 </pre>
 
 <h2>Grid (Bootstrap 4.0)</h2>
-|| Extra small <576px  | Small ≥576px |
-|| ------------- | ------------- |
-|Max container width| None (auto)  | 540px  |
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
