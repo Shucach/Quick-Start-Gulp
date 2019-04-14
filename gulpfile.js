@@ -13,6 +13,8 @@ const rename = require('gulp-rename');
 const browserSync = require("browser-sync").create();
 const svgSprite = require('gulp-svg-sprite');
 
+const webp = require('gulp-webp');
+
 
 /**
  * Style
@@ -64,6 +66,15 @@ function images() {
             ])
         )
         .pipe(gulp.dest("images"));
+}
+
+/**
+ * Convert image to WebP
+ */
+function imageToWebP() {
+    return gulp.src('app/images/to_webp/*')
+        .pipe(webp())
+        .pipe(gulp.dest('images/webp'))
 }
 
 /**
@@ -120,6 +131,7 @@ function browserSyncWatch() {
 const js = gulp.series(scripts);
 const css = gulp.series(style);
 const svg_sprite = gulp.series(createSvgSprite);
+const webP = gulp.series(imageToWebP);
 const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 
@@ -133,3 +145,4 @@ exports.css = css;
 exports.watch = watch;
 exports.serve = serve;
 exports.svg_sprite = svg_sprite;
+exports.webp = webP;

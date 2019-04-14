@@ -21,6 +21,11 @@
   <code>gulp svg_sprite</code>
 </pre>
 
+<p>If you want convert image to webp:</p>
+<pre>
+  <code>gulp webp</code>
+</pre>
+
 <h2>Grid (Bootstrap 4.0)</h2>
 <table>
     <tr>
