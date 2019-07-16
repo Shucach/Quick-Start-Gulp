@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const babel = require('gulp-babel');
 const webpack = require('webpack-stream');
 
 const imagemin = require("gulp-imagemin");
@@ -40,16 +39,45 @@ function scripts() {
     return gulp.src([
         'app/js/main.js'
     ])
-        .pipe(babel())
         .pipe(webpack({
             // 'development' or 'production'
-            mode: 'development',
+            mode: 'production',
             devtool: 'source-map',
+            output: {
+                filename: '[name].js',
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.(js)$/,
+                        loader: 'babel-loader',
+                        query: {
+                            presets: ['@babel/preset-env']
+                        }
+                    }
+                ]
+            }
+        }))
+        .pipe(gulp.dest('js/'));
+}
+
+/**
+ * JS|jQuery plugins
+ * @returns {*}
+ */
+function jsPlugins() {
+    return gulp.src([
+        'app/js/plugins/jquery-3.4.1.min.js',
+    ])
+        .pipe(webpack({
+            // 'development' or 'production'
+            mode: 'production',
             output: {
                 filename: '[name].js',
             }
         }))
-        .pipe(gulp.dest('js/'));
+        .pipe(rename('plugins.min.js'))
+        .pipe(gulp.dest('js'));
 }
 
 /**
@@ -130,6 +158,7 @@ function browserSyncWatch() {
  */
 const js = gulp.series(scripts);
 const css = gulp.series(style);
+const plugins = gulp.series(jsPlugins);
 const svg_sprite = gulp.series(createSvgSprite);
 const webP = gulp.series(imageToWebP);
 const watch = gulp.parallel(watchFiles);
@@ -140,8 +169,9 @@ const serve = gulp.parallel(browserSyncWatch);
  * Export tasks
  */
 exports.js = js;
-exports.images = images;
 exports.css = css;
+exports.plugins = plugins;
+exports.images = images;
 exports.watch = watch;
 exports.serve = serve;
 exports.svg_sprite = svg_sprite;

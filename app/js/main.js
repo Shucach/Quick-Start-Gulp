@@ -10,17 +10,14 @@
  * Example use class & import file
  *
  * Classes style
- *      Support:
- *          Chrome - 49.0,
- *          Firefox 45,
- *          Edge 13,
- *          Internet Explorer - No support
- *          Opera - No support
- *          Safari - 9.0
+ *  user [@babel/preset-env] for support es5
  */
 
 //Classes type
 import Weather from './_WeaterClass';
+
+let testVariable = true;
+console.log(testVariable);
 
 class Person {
     constructor (name, age) {
