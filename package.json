@@ -18,6 +18,8 @@
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-iconfont": "^10.0.3",
+    "gulp-iconfont-css": "^3.0.0",
     "gulp-imagemin": "^5.0.3",
     "gulp-rename": "^1.4.0",
     "gulp-stylus": "^2.7.0",
