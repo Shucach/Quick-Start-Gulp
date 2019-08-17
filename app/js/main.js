@@ -15,6 +15,7 @@
 
 //Classes type
 import Weather from './_WeaterClass';
+import LazyLoad from './helpers/LazyLoadClass';
 
 let testVariable = true;
 console.log(testVariable);
@@ -35,4 +36,9 @@ const weather = new Weather();
 
 person.seyHi();
 weather.getWeather();
+
+/**
+ * Lazy
+ */
+LazyLoad.lazy();
 
