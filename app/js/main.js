@@ -42,3 +42,7 @@ weather.getWeather();
  */
 LazyLoad.lazy();
 
+if($('body').length) {
+    console.log('Support jQuery');
+}
+

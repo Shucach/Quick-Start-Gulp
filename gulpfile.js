@@ -8,6 +8,7 @@ const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
 const stylus = require('gulp-stylus');
 const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
 
 const browserSync = require("browser-sync").create();
 const svgSprite = require('gulp-svg-sprite');
@@ -73,15 +74,10 @@ function jsPlugins() {
     return gulp.src([
         'app/js/plugins/jquery-3.4.1.min.js',
     ])
-        .pipe(webpack({
-            // 'development' or 'production'
-            mode: 'production',
-            output: {
-                filename: '[name].js',
-            }
-        }))
-        .pipe(rename('plugins.min.js'))
-        .pipe(gulp.dest('js'));
+    .pipe(concat('main.plugin.js'))
+    .pipe(rename('plugins.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('js'));
 }
 
 /**
