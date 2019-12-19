@@ -125,8 +125,8 @@ function createSvgSprite() {
  * Watch
  */
 function watchFiles() {
-    gulp.watch("app/js/*.js", scripts);
     gulp.watch("app/css/*.styl", style);
+    gulp.watch(["app/js/*.js", "app/js/helpers/*.js"], scripts);
 }
 
 /**
@@ -140,7 +140,7 @@ function browserSyncWatch() {
     });
 
     let st = gulp.watch("app/css/*.styl", style),
-        js = gulp.watch("app/js/*.js", scripts);
+        js = gulp.watch(["app/js/*.js", "app/js/helpers/*.js"], scripts);
 
     st.on('change', function(){
         browserSync.reload();

@@ -14,11 +14,11 @@
  */
 
 //Classes type
-import Weather from './_WeaterClass';
-import LazyLoad from './helpers/LazyLoadClass';
+import Utils from './helpers/UtilsClass';
 
-let testVariable = true;
-console.log(testVariable);
+Utils.supportsWebp();
+Utils.tabsInit();
+Utils.toggleInit();
 
 class Person {
     constructor (name, age) {
@@ -31,16 +31,7 @@ class Person {
     }
 }
 const person = new Person('Harry', 0);
-const weather = new Weather();
-
-
 person.seyHi();
-weather.getWeather();
-
-/**
- * Lazy
- */
-LazyLoad.lazy();
 
 if($('body').length) {
     console.log('Support jQuery');
