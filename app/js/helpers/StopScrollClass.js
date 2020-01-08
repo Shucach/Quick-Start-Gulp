@@ -1,11 +1,12 @@
 export default class StopScroll {
 
     /**
-     * @param scrollClass
+     * @param el
      */
-    constructor (scrollClass) {
-        this.scrollClass = scrollClass;
-        this.res = '';
+    constructor (el) {
+        //TODO: global is not very good
+        window.stElement = el;
+        window.res = '';
     }
 
     /**
@@ -29,17 +30,16 @@ export default class StopScroll {
         $(window).bind('touchmove.fixed.popup', function(e) {
             let te = e.originalEvent.changedTouches[0].clientY;
             if(ts > te + 5){
-                self.res = 'down';
+                window.res = 'down';
             } else if(ts < te - 5){
-                self.res = 'up';
+                window.res = 'up';
             }
         });
 
         //-webkit-overflow-scrolling touch
         //Need add padding bottom for some blocks for phones 80px
+        //window.addEventListener('touchmove', self.mobileWheel, { passive: false });
         window.addEventListener('touchmove', self.mobileWheel, { passive: false });
-
-        //window.addEventListener('touchmove', function () {self.mobileWheel(event, self.scrollClass, self.res)}, { passive: false });
     }
 
 
@@ -57,14 +57,11 @@ export default class StopScroll {
 
         //Mobile
         window.removeEventListener('touchmove', self.mobileWheel, { passive: false });
-        //window.removeEventListener('touchmove', function () {self.mobileWheel(event, self.scrollClass, 'down')}, { passive: false });
-        //window.removeEventListener('touchmove', function () {self.mobileWheel(event, self.scrollClass, 'up')}, { passive: false });
 
         $(window).unbind('touchstart.fixed.popup');
         $(window).unbind('touchmove.fixed.popup');
 
     }
-
 
     //Helpers functions
     wheel(e) {
@@ -95,18 +92,17 @@ export default class StopScroll {
         }
     }
 
-    mobileWheel(e, scrollClass, res) {
-        console.log(scrollClass);
-        console.log(res);
+    mobileWheel(e) {
 
-        if($(e.target).hasClass(scrollClass) || $(e.target).closest(scrollClass).length) {
-            let element = $(e.target).closest(scrollClass)[0],
+        //if($(e.target).hasClass(element) || $(e.target).closest(element).length) {
+        if(window.stElement[0] === $(e.target).closest('.wrap_popup')[0]) {
+            let element = $(e.target).closest('.wrap_popup')[0],
                 scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
                 scrollTop = element.scrollTop;
 
-            if(scrollTop === 0 && scrollHeight && res === 'up' ||
-                scrollTop === 0 && res === 'up' ||
-                scrollHeight && res === 'down') {
+            if(scrollTop === 0 && scrollHeight && window.res === 'up' ||
+                scrollTop === 0 && window.res === 'up' ||
+                scrollHeight && window.res === 'down') {
                 e.preventDefault();
             }
         } else {

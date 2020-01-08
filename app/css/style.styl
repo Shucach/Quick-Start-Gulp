@@ -27,3 +27,32 @@
   img
     max-width 100%
     height auto
+
+/*
+* Stop scroll example
+*/
+body
+  min-height 2000px
+.overlay_page
+  display none
+  background rgba(0, 0, 0, .4)
+  position fixed
+  left 0
+  top 0
+  width 100%
+  height 100%
+  z-index 5
+.wrap_popup
+  display none
+  background #fff
+  padding 15px
+  position fixed
+  height 150px
+  -webkit-overflow-scrolling touch
+  overflow auto
+  left 50%
+  top 50%
+  transform translate(-50%, -50%)
+  max-width 300px
+  width 100%
+  z-index 6

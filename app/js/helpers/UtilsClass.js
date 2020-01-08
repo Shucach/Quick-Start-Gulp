@@ -1,4 +1,6 @@
 export default class Utils {
+    //TODO: add method for popup
+
     /**
      * Tabs
      */

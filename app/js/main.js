@@ -15,6 +15,7 @@
 
 //Classes type
 import Utils from './helpers/UtilsClass';
+import StopScroll from './helpers/StopScrollClass';
 
 Utils.supportsWebp();
 Utils.tabsInit();
@@ -36,4 +37,26 @@ person.seyHi();
 if($('body').length) {
     console.log('Support jQuery');
 }
+
+/**
+ * Example popup & fixed scroll
+ */
+let $openPopup = $('.open-popup'),
+    stopScrollForPopup = null;
+$openPopup.on('click', function (e) {
+    e.preventDefault();
+
+    console.log($(this).attr('data-id'));
+
+    $($($(this).attr('data-id'))).fadeIn(200);
+    $('.overlay_page').fadeIn(200);
+
+    stopScrollForPopup = new StopScroll($($(this).attr('data-id')));
+    stopScrollForPopup.disableScroll();
+});
+$('.overlay_page').on('click', function () {
+    $('.overlay_page, .wrap_popup').fadeOut(200);
+    stopScrollForPopup.enableScroll();
+});
+
 
