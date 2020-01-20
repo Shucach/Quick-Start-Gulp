@@ -52,6 +52,7 @@ export default class Utils {
     static supportsWebp() {
         if (!self.createImageBitmap) {
             $('html').addClass('no-webp');
+            return false;
         }
 
         const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
