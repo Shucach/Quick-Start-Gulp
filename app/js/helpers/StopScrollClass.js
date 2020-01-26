@@ -1,12 +1,17 @@
 export default class StopScroll {
 
     /**
+     *
      * @param el
+     * @param wrapClass
+     * @param scrollClass - we can skip this class is if wrapClass will be scroll area
+     * version 0.2
      */
-    constructor (el) {
-        //TODO: global is not very good
+    constructor (el, wrapClass, scrollClass) {
         window.stElement = el;
-        window.res = '';
+        window.wrapClass = wrapClass;
+        window.scrollClass = scrollClass;
+        window.direction = '';
     }
 
     /**
@@ -17,9 +22,9 @@ export default class StopScroll {
 
         //Desktop
         if (window.addEventListener) {
-            window.addEventListener('DOMMouseScroll', self.preventDefault);
+            window.addEventListener('DOMMouseScroll', self.wheel);
         }
-        window.addEventListener('mousewheel', self.preventDefault, { passive: false });
+        window.addEventListener('mousewheel', self.wheel, { passive: false });
         document.onkeydown = self.keydown;
 
         //Mobile
@@ -30,9 +35,18 @@ export default class StopScroll {
         $(window).bind('touchmove.fixed.popup', function(e) {
             let te = e.originalEvent.changedTouches[0].clientY;
             if(ts > te + 5){
-                window.res = 'down';
+                window.direction = 'down';
             } else if(ts < te - 5){
-                window.res = 'up';
+                window.direction = 'up';
+            }
+        });
+
+        //Desktop
+        $(window).bind('mousewheel.fixed.popup', function(e) {
+            if (e.originalEvent.deltaY < 0) {
+                window.direction = 'up';
+            } else if (e.originalEvent.deltaY > 0) {
+                window.direction = 'down';
             }
         });
 
@@ -42,38 +56,64 @@ export default class StopScroll {
         window.addEventListener('touchmove', self.mobileWheel, { passive: false });
     }
 
-
     /**
-     * Cancel all event and on scroll
+     * Clear all event and on scroll
      */
     enableScroll() {
         let self  = this;
 
         //Desktop
         if (window.removeEventListener) {
-            window.removeEventListener('DOMMouseScroll', self.preventDef);
+            window.removeEventListener('DOMMouseScroll', self.wheel);
         }
-        window.removeEventListener('mousewheel', self.preventDef, { passive: true });
+        window.removeEventListener('mousewheel', self.wheel, { passive: true });
+        $(window).unbind('mousewheel.fixed.popup');
 
         //Mobile
         window.removeEventListener('touchmove', self.mobileWheel, { passive: false });
-
         $(window).unbind('touchstart.fixed.popup');
         $(window).unbind('touchmove.fixed.popup');
 
     }
 
-    //Helpers functions
+    /**
+     * Stop scroll for desktop
+     * @param e
+     */
     wheel(e) {
-        let self = this;
-        self.preventDefault(e)
+        if(window.stElement[0] === $(e.target).closest(window.wrapClass)[0] || window.stElement[0] === $(e.target)[0]) {
+            let element = ($(window.stElement).find(window.scrollClass).last()[0]) ? $(window.stElement).find(window.scrollClass).last()[0] : $(window.stElement)[0],
+                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
+                scrollTop = element.scrollTop;
+
+            if(scrollTop === 0 && scrollHeight && window.direction === 'up' ||
+                scrollTop === 0 && window.direction === 'up' ||
+                scrollHeight && window.direction === 'down') {
+                e.preventDefault();
+            }
+        } else {
+            e.preventDefault();
+        }
     }
 
-    preventDef(e) {
-        e = e || window.event;
-        if (e.preventDefault)
+    /**
+     * Stop scroll for mobile
+     * @param e
+     */
+    mobileWheel(e) {
+        if(window.stElement[0] === $(e.target).closest(window.wrapClass)[0] || window.stElement[0] === $(e.target)[0]) {
+            let element = ($(window.stElement).find(window.scrollClass)[0]) ? $(window.stElement).find(window.scrollClass)[0] : $(window.stElement)[0],
+                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
+                scrollTop = element.scrollTop;
+
+            if(scrollTop === 0 && scrollHeight && window.direction === 'up' ||
+                scrollTop === 0 && window.direction === 'up' ||
+                scrollHeight && window.direction === 'down') {
+                e.preventDefault();
+            }
+        } else {
             e.preventDefault();
-        e.returnValue = false;
+        }
     }
 
     keydown(e) {
@@ -85,28 +125,10 @@ export default class StopScroll {
                     e.target.type !== 'search' &&
                     e.target.type !== 'tel' &&
                     e.target.type !== 'email') {
-                    this.preventDefault(e);
+                    e.preventDefault();
                     return;
                 }
             }
-        }
-    }
-
-    mobileWheel(e) {
-
-        //if($(e.target).hasClass(element) || $(e.target).closest(element).length) {
-        if(window.stElement[0] === $(e.target).closest('.wrap_popup')[0]) {
-            let element = $(e.target).closest('.wrap_popup')[0],
-                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
-                scrollTop = element.scrollTop;
-
-            if(scrollTop === 0 && scrollHeight && window.res === 'up' ||
-                scrollTop === 0 && window.res === 'up' ||
-                scrollHeight && window.res === 'down') {
-                e.preventDefault();
-            }
-        } else {
-            e.preventDefault();
         }
     }
 

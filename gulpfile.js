@@ -1,3 +1,4 @@
+//Modules
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
 
@@ -18,16 +19,18 @@ const iconfontCss = require('gulp-iconfont-css');
 
 const webp = require('gulp-webp');
 
-
 /**
  * Style
  */
 function style() {
     return gulp.src([
+        //TODO: insert before plugins load
+        'app/css/plugins/jquery.scrollbar.styl',
+
         'app/css/reset.styl',
         'app/css/grid.styl',
         'app/css/fonts.styl',
-        'app/css/style.styl'
+        'app/css/style.styl',
     ])
         .pipe(concat('main.styl'))
         .pipe(stylus())
@@ -73,6 +76,7 @@ function scripts() {
 function jsPlugins() {
     return gulp.src([
         'app/js/plugins/jquery-3.4.1.min.js',
+        'app/js/plugins/jquery.scrollbar.js',
     ])
     .pipe(concat('main.plugin.js'))
     .pipe(rename('plugins.min.js'))
@@ -89,7 +93,7 @@ function images() {
         .pipe(
             imagemin([
                 imageminMozjpeg({
-                    quality: 50
+                    quality: 85
                 })
             ])
         )
@@ -101,7 +105,7 @@ function images() {
  */
 function imageToWebP() {
     return gulp.src('app/images/to_webp/*')
-        .pipe(webp())
+        .pipe(webp({quality: 85}))
         .pipe(gulp.dest('images/webp'))
 }
 

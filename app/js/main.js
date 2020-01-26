@@ -51,12 +51,21 @@ $openPopup.on('click', function (e) {
     $($($(this).attr('data-id'))).fadeIn(200);
     $('.overlay_page').fadeIn(200);
 
-    stopScrollForPopup = new StopScroll($($(this).attr('data-id')));
+    stopScrollForPopup = new StopScroll($($(this).attr('data-id')), '.wrap_popup', '.custom-scrollbar');
     stopScrollForPopup.disableScroll();
 });
 $('.overlay_page').on('click', function () {
     $('.overlay_page, .wrap_popup').fadeOut(200);
     stopScrollForPopup.enableScroll();
 });
+
+
+/**
+ * Scrollbar
+ */
+// if($(window).width() >= 1200) {
+//     console.log('Initial scrollbar');
+//     $('.custom-scrollbar').scrollbar();
+// }
 
 
