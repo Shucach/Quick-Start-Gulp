@@ -87,7 +87,7 @@ function jsPlugins() {
 /**
  * Optimize Images
  */
-function images() {
+function imagesMin() {
     return gulp
         .src('app/images/*')
         .pipe(
@@ -158,6 +158,8 @@ function browserSyncWatch() {
 
 /**
  * Convert svg icons to fonts
+ * https://www.npmjs.com/package/gulp-iconfont-css
+ * https://www.npmjs.com/package/gulp-iconfont
  */
 function svg2Fonts() {
     return gulp.src(['app/svg2Fonts/*.svg'])
@@ -170,6 +172,7 @@ function svg2Fonts() {
             fontName: 'svgFonts',
             //prependUnicode: true,
             formats: ['ttf', 'eot', 'woff', 'svg', 'woff2'],
+            normalize: true
         }))
         .pipe(gulp.dest('fonts/svg-fonts/'));
 }
@@ -181,6 +184,7 @@ function svg2Fonts() {
 const js = gulp.series(scripts);
 const css = gulp.series(style);
 const plugins = gulp.series(jsPlugins);
+const images = gulp.series(imagesMin);
 const svg_sprite = gulp.series(createSvgSprite);
 const webP = gulp.series(imageToWebP);
 const watch = gulp.parallel(watchFiles);

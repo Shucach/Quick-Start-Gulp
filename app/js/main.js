@@ -14,8 +14,8 @@
  */
 
 //Classes type
-import Utils from './helpers/UtilsClass';
-import StopScroll from './helpers/StopScrollClass';
+import Utils from './clasess/UtilsClass';
+import StopScroll from './clasess/StopScrollClass';
 
 Utils.supportsWebp();
 Utils.tabsInit();
@@ -37,6 +37,7 @@ person.seyHi();
 if($('body').length) {
     console.log('Support jQuery');
 }
+
 
 /**
  * Example popup & fixed scroll
