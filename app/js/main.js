@@ -14,12 +14,12 @@
  */
 
 //Classes type
-import Utils from './clasess/UtilsClass';
-import StopScroll from './clasess/StopScrollClass';
+import Utils from './classes/UtilsClass';
 
 Utils.supportsWebp();
 Utils.tabsInit();
 Utils.toggleInit();
+Utils.fadePopup();
 
 class Person {
     constructor (name, age) {
@@ -37,28 +37,6 @@ person.seyHi();
 if($('body').length) {
     console.log('Support jQuery');
 }
-
-
-/**
- * Example popup & fixed scroll
- */
-let $openPopup = $('.open-popup'),
-    stopScrollForPopup = null;
-$openPopup.on('click', function (e) {
-    e.preventDefault();
-
-    console.log($(this).attr('data-id'));
-
-    $($($(this).attr('data-id'))).fadeIn(200);
-    $('.overlay_page').fadeIn(200);
-
-    stopScrollForPopup = new StopScroll($($(this).attr('data-id')), '.wrap_popup', '.custom-scrollbar');
-    stopScrollForPopup.disableScroll();
-});
-$('.overlay_page').on('click', function () {
-    $('.overlay_page, .wrap_popup').fadeOut(200);
-    stopScrollForPopup.enableScroll();
-});
 
 
 /**

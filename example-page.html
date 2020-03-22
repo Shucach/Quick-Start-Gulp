@@ -14,12 +14,13 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body class="example">
 
-<!-- Some example -->
+<!-- Popup example -->
 <div class="overlay_page"></div>
 <div class="wrap_popup" id="popup_1">
     <div class="custom-scrollbar">
+        <input type="text" name="name" />
         <h1>Popup 1</h1>
         <h1>Popup 1</h1>
         <h1>Popup 1</h1>
@@ -42,14 +43,11 @@
     </div>
 </div>
 
-
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <h1>Hello word!</h1>
+        <div class="col-12">
+            <h1 class="ex_title">SVG sprite</h1>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-4">
             <img src="images/sprite.svg#toys" width="150">
         </div>
@@ -62,12 +60,20 @@
             <div class="bg_sprite"></div>
         </div>
     </div>
+    <hr />
     <div class="row">
+        <div class="col-12">
+            <h1 class="ex_title">SVG 2 Fonts</h1>
+        </div>
         <div class="col"><i style="font-size: 50px;" class="icon icon-bio"></i> </div>
         <div class="col"><i style="font-size: 50px;" class="icon icon-sprout"></i> </div>
         <div class="col"><i style="font-size: 50px;" class="icon icon-toys"></i> </div>
     </div>
+    <hr />
     <div class="row">
+        <div class="col-12">
+            <h1 class="ex_title">Tabs</h1>
+        </div>
         <div class="col-12">
             <div class="tabs_wrap">
                 <ul class="tab_header d-flex">
@@ -84,22 +90,38 @@
                 </div>
             </div>
         </div>
+    </div>
+    <hr />
+
+    <div class="row">
         <div class="col-12">
-            <br/>
-            <br/>
+            <h1 class="ex_title">Toggle</h1>
+        </div>
+        <div class="col-12">
             <div class="toggle_wrap">
-                <div class="toggle_header">Header for toggle. Just click!</div>
-                <div class="toggle_content" style="display: none;">
-                    Some toggle content
+                <div>
+                    <div class="toggle_header">Header for toggle. Just click!</div>
+                    <div class="toggle_content" style="display: none;">
+                        Some toggle content
+                    </div>
+                </div>
+                <div>
+                    <div class="toggle_header">Header for toggle. Just click!</div>
+                    <div class="toggle_content" style="display: none;">
+                        Some toggle content
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <br>
+
+    <hr />
     <div class="row">
+        <div class="col-12">
+            <h1 class="ex_title">Open popup</h1>
+        </div>
         <div class="col-lg-12">
-            <a href="#" class="open-popup" data-id="#popup_1">Popup 1</a>
+            <a href="#" class="open-popup" data-id="#popup_1" data-focus="name" data-scroll-class=".custom-scrollbar">Popup 1</a>
         </div>
     </div>
 </div>

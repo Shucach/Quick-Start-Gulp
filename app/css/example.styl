@@ -1,0 +1,85 @@
+/**
+* Author: Ivan Horobets
+* Email: vanzzosolutions@gmail.com
+* Company: VanzzoSolutions
+* Just for example
+*/
+
+.ex_title
+  margin-bottom 15px
+  font-size 20px
+  font-weight bold
+
+hr
+  margin 15px 0
+
+/**
+*  Sprite svg
+ */
+.bg_sprite
+  width 150px
+  height 150px
+  background url('../images/sprite.svg#toys') no-repeat
+
+/**
+* Lazy load
+ */
+.cats-example
+  img
+    max-width 100%
+    height auto
+
+/**
+* Stop scroll
+ */
+body.example
+  min-height 2000px
+.overlay_page
+  display none
+  background rgba(0, 0, 0, .4)
+  position fixed
+  left 0
+  top 0
+  width 100%
+  height 100%
+  z-index 5
+.wrap_popup
+  display none
+  background #fff
+  padding 15px
+  position fixed
+  left 50%
+  top 50%
+  transform translate(-50%, -50%)
+  max-width 300px
+  width 100%
+  z-index 6
+  .custom-scrollbar
+    height 150px
+    -webkit-overflow-scrolling touch
+    overflow auto
+
+/**
+* Tabs
+ */
+.tabs_wrap
+  .tab_header
+    margin-bottom 5px
+  .tab_menu
+    padding 5px
+    cursor pointer
+    &.active
+      background #ccc
+
+/**
+* Toggle
+ */
+.toggle_wrap
+  >div
+    margin-bottom 10px
+  .toggle_header
+    cursor pointer
+    &.active
+      background #ccc
+  .toggle_content
+    padding-top 5px

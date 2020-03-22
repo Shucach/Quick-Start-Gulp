@@ -31,6 +31,9 @@ function style() {
         'app/css/grid.styl',
         'app/css/fonts.styl',
         'app/css/style.styl',
+
+        //TODO: example
+        'app/css/example.styl',
     ])
         .pipe(concat('main.styl'))
         .pipe(stylus())
@@ -130,7 +133,7 @@ function createSvgSprite() {
  */
 function watchFiles() {
     gulp.watch("app/css/*.styl", style);
-    gulp.watch(["app/js/*.js", "app/js/helpers/*.js"], scripts);
+    gulp.watch(["app/js/*.js", "app/js/classes/*.js"], scripts);
 }
 
 /**
@@ -144,7 +147,7 @@ function browserSyncWatch() {
     });
 
     let st = gulp.watch("app/css/*.styl", style),
-        js = gulp.watch(["app/js/*.js", "app/js/helpers/*.js"], scripts);
+        js = gulp.watch(["app/js/*.js", "app/js/classes/*.js"], scripts);
 
     st.on('change', function(){
         browserSync.reload();
