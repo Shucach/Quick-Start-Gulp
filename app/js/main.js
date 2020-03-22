@@ -20,6 +20,7 @@ Utils.supportsWebp();
 Utils.tabsInit();
 Utils.toggleInit();
 Utils.fadePopup();
+Utils.customSelect();
 
 class Person {
     constructor (name, age) {
