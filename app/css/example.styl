@@ -1,0 +1,170 @@
+/**
+* Author: Ivan Horobets
+* Email: vanzzosolutions@gmail.com
+* Company: VanzzoSolutions
+* Just for example
+*/
+
+.ex_title
+  margin-bottom 15px
+  font-size 20px
+  font-weight bold
+
+hr
+  margin 15px 0
+
+/**
+*  Sprite svg
+ */
+.bg_sprite
+  width 150px
+  height 150px
+  background url('../images/sprite.svg#toys') no-repeat
+
+/**
+* Lazy load
+ */
+.cats-example
+  img
+    max-width 100%
+    height auto
+
+/**
+* Stop scroll
+ */
+body.example
+  min-height 2000px
+.overlay_page
+  display none
+  background rgba(0, 0, 0, .4)
+  position fixed
+  left 0
+  top 0
+  width 100%
+  height 100%
+  z-index 5
+.wrap_popup
+  display none
+  background #fff
+  padding 15px
+  position fixed
+  left 50%
+  top 50%
+  transform translate(-50%, -50%)
+  max-width 300px
+  width 100%
+  z-index 6
+  .custom-scrollbar
+    height 150px
+    -webkit-overflow-scrolling touch
+    overflow auto
+
+/**
+* Tabs
+ */
+.tabs_wrap
+  .tab_header
+    margin-bottom 5px
+  .tab_menu
+    padding 5px
+    cursor pointer
+    &.active
+      background #ccc
+
+/**
+* Toggle
+ */
+.toggle_wrap
+  >div
+    margin-bottom 10px
+  .toggle_header
+    cursor pointer
+    &.active
+      background #ccc
+  .toggle_content
+    padding-top 5px
+
+/**
+* Custom select
+ */
+.custom_select
+  position relative
+  width 230px
+  height 40px
+  &[data-state="active"]
+    .select_title
+      &::before
+        transform translate(-3px, -50%) rotate(-45deg)
+      &::after
+        transform translate(3px, -50%) rotate(45deg)
+    .select_content
+      opacity 1
+    .select_label + .select_input + .select_label
+      max-height 40px
+      border-top-width 1px
+
+.select_title
+  background #ccc
+  display flex
+  align-items center
+  width 100%
+  padding 8px 16px
+  border-radius 5px
+  border solid 1px #c7ccd1
+  cursor pointer
+  &::before,
+  &::after
+    content ""
+    position absolute
+    top 50%
+    right 16px
+    display block
+    width 10px
+    height 2px
+    transition all 0.3s ease-out
+    background-color #333333
+    transform translate(-3px, -50%) rotate(45deg)
+  &::after
+    transform translate(3px, -50%) rotate(-45deg)
+  &:hover
+    border-color: #D8093A
+    &::before,
+    &::after
+      background-color #D8093A
+.select_content
+  position absolute
+  top 40px
+  left 3px
+  display flex
+  flex-direction column
+  width calc(100% - 6px)
+  background-color #ffffff
+  border 1px solid #c7ccd1
+  border-top none
+  border-bottom-left-radius 5px
+  border-bottom-right-radius 5px
+  transition all 0.3s ease-out
+  opacity: 0
+  z-index: 8
+.select_input
+  display none
+  &:checked + label
+    background-color #dedede
+  &:disabled + label
+    opacity 0.6;
+    pointer-events none
+.select_label
+  display flex
+  align-items center
+  width 100%
+  height 40px
+  //max-height: 0;
+  padding 0 16px
+  transition all 0.2s ease-out
+  cursor pointer
+  overflow hidden
+  & + input + &
+    border-top: 0 solid #C7CCD160
+  &:hover
+    background-color #D8093A !important
+    color #ffffff
