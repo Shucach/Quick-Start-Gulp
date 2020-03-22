@@ -137,11 +137,12 @@ export default class Utils {
 
     /**
      * Custom select actions
+     * Idea from: https://m.habr.com/ru/post/491000/
      */
     static customSelect() {
-        const selectSingle = document.querySelector('.custom_select');
-        const selectSingle_title = selectSingle.querySelector('.select_title');
-        const selectSingle_labels = selectSingle.querySelectorAll('.select__label');
+        let selectSingle = document.querySelector('.custom_select');
+        let selectSingle_title = selectSingle.querySelector('.select_title');
+        let selectSingle_labels = selectSingle.querySelectorAll('.select_label');
 
         // Toggle menu
         selectSingle_title.addEventListener('click', () => {
@@ -161,10 +162,10 @@ export default class Utils {
         }
 
         // Reset title
-        const reset = document.querySelector('.reset');
-        reset.addEventListener('click', () => {
-            selectSingle_title.textContent = selectSingle_title.getAttribute('data-default');
-        });
+        // const reset = document.querySelector('.reset');
+        // reset.addEventListener('click', () => {
+        //     selectSingle_title.textContent = selectSingle_title.getAttribute('data-default');
+        // });
     }
 
     /**
