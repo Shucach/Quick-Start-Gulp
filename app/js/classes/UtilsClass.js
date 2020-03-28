@@ -43,6 +43,9 @@ export default class Utils {
 
     /**
      * Open|close fade popup
+     * Triggers:
+     *   Open popup: $(document).trigger('trigger.show.popup', ['#id_popup', '.scrollClass', 'focusNameInput']);
+     *   Position all popups: $(document).trigger('trigger.position.all.popups');
      */
     static fadePopup() {
         let $overlayPage = $('.overlay_page'),
@@ -50,7 +53,41 @@ export default class Utils {
 
         //Need for Chrome.
         if($popups.length) {
-            //Position for all popup on desktop
+            positionPopup();
+
+            $(document).on('click', '.open-popup', function (e) {
+                e.preventDefault();
+                let $this = $(this),
+                    id = $(this).attr('data-id');
+
+                if(!id) {
+                    console.warn('Please set data-fade attribute');
+                    return false;
+                }
+
+                openPopup(id, $(this).attr('data-scroll-class'), $this.attr('data-focus'));
+            });
+
+            //Trigger open popup
+            $(document).bind('trigger.show.popup', function (e, id, thisScrollClass, thisFocus) {
+                openPopup(id, thisScrollClass, thisFocus);
+            });
+
+            //Trigger position all popups
+            $(document).bind('trigger.position.all.popups', function () {
+                positionPopup();
+            });
+
+
+            //Close
+            $popups.on('click', '.header .icon-clear, .close-popup', function (e) {
+                e.preventDefault();
+                allClose();
+            });
+        }
+
+        //Position for all popup on desktop
+        function positionPopup() {
             if ($(window).width() >= 1200) {
 
                 let wW = $(window).width(),
@@ -66,50 +103,32 @@ export default class Utils {
                     })
                 });
             }
+        }
 
-            //TODO: check what solution will better.
-            //TODO: document on click OR reinit
-            $(document).on('click', '.open-popup', function (e) {
-                e.preventDefault();
-                let $this = $(this),
-                    id = $(this).attr('data-id');
-
-                if(!id) {
-                    console.warn('Please set data-fade attribute');
-                    return false;
-                }
-
-                $(id).fadeIn(200, function () {
-                    //Set autofocus on input
-                    if($this.attr('data-focus')) {
-                        let inputF = $(id).find('input[name='+ $this.attr('data-focus') +']');
-                        if(inputF.length) {
-                            inputF.focus();
-                        } else {
-                            console.warn('Input not found. Check input name!');
-                        }
+        function openPopup(id, thisScrollClass, thisFocus) {
+            $(id).fadeIn(200, function () {
+                //Set autofocus on input
+                if(thisFocus) {
+                    let inputF = $(id).find('input[name='+ thisFocus +']');
+                    if(inputF.length) {
+                        inputF.focus();
+                    } else {
+                        console.warn('Input not found. Check input name!');
                     }
-                });
-                $overlayPage.fadeIn(200);
-                setCloseOverlay(true);
-
-                if($(this).attr('data-scroll-class')) {
-                    //Set other scroll area
-                    //data-scroll-class=".product_wrap" - need set to open btn
-                    self.stopScrollSwipe = new StopScroll($(id), '.wrap_popup', $(this).attr('data-scroll-class'));
-                } else {
-                    self.stopScrollSwipe = new StopScroll($(id), '.wrap_popup');
                 }
-
-                self.stopScrollSwipe.disableScroll();
             });
+            $overlayPage.fadeIn(200);
+            setCloseOverlay(true);
 
+            if(thisScrollClass) {
+                //Set other scroll area
+                //data-scroll-class=".product_wrap" - need set to open btn
+                self.stopScrollSwipe = new StopScroll($(id), '.wrap_popup', thisScrollClass);
+            } else {
+                self.stopScrollSwipe = new StopScroll($(id), '.wrap_popup');
+            }
 
-            //Close
-            $popups.on('click', '.header .icon-clear, .close-popup', function (e) {
-                e.preventDefault();
-                allClose();
-            });
+            self.stopScrollSwipe.disableScroll();
         }
 
         function setCloseOverlay(set) {
@@ -132,7 +151,6 @@ export default class Utils {
 
             self.stopScrollSwipe.enableScroll();
         }
-
     }
 
     /**
@@ -207,4 +225,5 @@ export default class Utils {
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.8/lazysizes.min.js';
         document.body.appendChild(script);
     }
+
 }

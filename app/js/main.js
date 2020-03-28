@@ -39,6 +39,14 @@ if($('body').length) {
     console.log('Support jQuery');
 }
 
+/**
+ * Trigger open popup
+ */
+$('.trigger-open-popup').on('click', function (e) {
+    e.preventDefault();
+    $(document).trigger('trigger.show.popup', ['#popup_1', '.custom-scrollbar', 'name']);
+});
+
 
 /**
  * Scrollbar
