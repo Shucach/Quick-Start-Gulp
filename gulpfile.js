@@ -17,6 +17,9 @@ const svgSprite = require('gulp-svg-sprite');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
 
+const ttf2woff2p = require('gulp-ttf2woff2');
+const ttf2woffp = require('gulp-ttf2woff');
+
 const webp = require('gulp-webp');
 
 /**
@@ -174,10 +177,32 @@ function svg2Fonts() {
         .pipe(iconfont({
             fontName: 'svgFonts',
             //prependUnicode: true,
-            formats: ['ttf', 'eot', 'woff', 'svg', 'woff2'],
+            formats: ['woff', 'woff2'],
             normalize: true
         }))
         .pipe(gulp.dest('fonts/svg-fonts/'));
+}
+
+/**
+ * Convert TTF to web formats woff2, woff
+ * https://www.npmjs.com/package/gulp-ttf2woff2
+ * https://www.npmjs.com/package/gulp-ttf2woff
+ */
+function ttf2woffAll() {
+    return gulp.series(
+        ttf2woff2Fn,
+        ttf2woffFn
+    )();
+}
+function ttf2woff2Fn() {
+    return gulp.src(['app/fontsTTF/*.ttf'])
+        .pipe(ttf2woff2p())
+        .pipe(gulp.dest('fonts/convert-fonts/'));
+}
+function ttf2woffFn() {
+    return gulp.src(['app/fontsTTF/*.ttf'])
+        .pipe(ttf2woffp())
+        .pipe(gulp.dest('fonts/convert-fonts/'));
 }
 
 
@@ -193,6 +218,7 @@ const webP = gulp.series(imageToWebP);
 const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 const svgFonts = gulp.parallel(svg2Fonts);
+const ttf2woff = gulp.parallel(ttf2woffAll);
 
 
 /**
@@ -207,3 +233,4 @@ exports.serve = serve;
 exports.svg_sprite = svg_sprite;
 exports.webp = webP;
 exports.svg2Fonts = svgFonts;
+exports.ttf2woff = ttf2woff;
