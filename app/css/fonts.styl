@@ -1,13 +1,24 @@
+/**
+* Text fonts
+ */
 @font-face {
-  font-family: "svgFonts";
-  src: url('../fonts/svg-fonts/svgFonts.eot');
-  src: url('../fonts/svg-fonts/svgFonts.eot?#iefix') format('eot'),
-          url('../fonts/svg-fonts/svgFonts.woff2') format('woff2'),
-          url('../fonts/svg-fonts/svgFonts.woff') format('woff'),
-          url('../fonts/svg-fonts/svgFonts.ttf') format('truetype'),
-          url('../fonts/svg-fonts/svgFonts.svg#svgFonts') format('svg');
+  font-family: "someFont";
+  font-style: 'normal'; //depend with font
+  font-weight: 'normal'; //depend with font
+  font-display: 'swap';
+  src: url('../fonts/fonts/someFont.woff2') format('woff2'),
+          url('../fonts/fonts/someFont.woff') format('woff');
 }
 
+/**
+* Icon fonts
+ */
+@font-face {
+  font-family: "svgFonts";
+  font-display: 'swap';
+  src: url('../fonts/svg-fonts/svgFonts.woff2') format('woff2'),
+          url('../fonts/svg-fonts/svgFonts.woff') format('woff');
+}
 //Do not replace this styles
 [class^="icon-"], [class*=" icon-"] {
   font-family: "svgFonts";
