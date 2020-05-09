@@ -15,12 +15,14 @@
 
 //Classes type
 import Utils from './classes/UtilsClass';
+import CountdownTimer from './modules/CountdownTimerClass';
 
 Utils.supportsWebp();
 Utils.tabsInit();
 Utils.toggleInit();
 Utils.fadePopup();
 Utils.customSelect();
+new CountdownTimer('Jan 5, 2021 15:37:25', '#demo-countdown-timer');
 
 class Person {
     constructor (name, age) {

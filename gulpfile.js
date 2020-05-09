@@ -136,7 +136,7 @@ function createSvgSprite() {
  */
 function watchFiles() {
     gulp.watch("app/css/*.styl", style);
-    gulp.watch(["app/js/*.js", "app/js/classes/*.js"], scripts);
+    gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
 }
 
 /**
@@ -150,7 +150,7 @@ function browserSyncWatch() {
     });
 
     let st = gulp.watch("app/css/*.styl", style),
-        js = gulp.watch(["app/js/*.js", "app/js/classes/*.js"], scripts);
+        js = gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
 
     st.on('change', function(){
         browserSync.reload();
