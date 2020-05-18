@@ -22,6 +22,19 @@ const ttf2woffp = require('gulp-ttf2woff');
 
 const webp = require('gulp-webp');
 
+const sass = require('gulp-sass');
+
+/**
+ * Mage grid
+ * NOTE: run after change settings in app/css/grid.scss
+ */
+function makeGrid() {
+    return gulp.src('app/css/grid.scss')
+        .pipe(sass())
+        .pipe(rename('grid.styl'))
+        .pipe(gulp.dest('app/css/'));
+}
+
 /**
  * Style
  */
@@ -219,6 +232,7 @@ const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 const svgFonts = gulp.parallel(svg2Fonts);
 const ttf2woff = gulp.parallel(ttf2woffAll);
+const make_grid = gulp.parallel(makeGrid);
 
 
 /**
@@ -234,3 +248,4 @@ exports.svg_sprite = svg_sprite;
 exports.webp = webP;
 exports.svg2Fonts = svgFonts;
 exports.ttf2woff = ttf2woff;
+exports.make_grid = make_grid;
