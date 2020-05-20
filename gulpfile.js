@@ -7,7 +7,6 @@ const imageminMozjpeg = require('imagemin-mozjpeg');
 
 const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
-const stylus = require('gulp-stylus');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 
@@ -25,34 +24,23 @@ const webp = require('gulp-webp');
 const sass = require('gulp-sass');
 
 /**
- * Mage grid
- * NOTE: run after change settings in app/css/grid.scss
- */
-function makeGrid() {
-    return gulp.src('app/css/grid.scss')
-        .pipe(sass())
-        .pipe(rename('grid.styl'))
-        .pipe(gulp.dest('app/css/'));
-}
-
-/**
  * Style
  */
 function style() {
     return gulp.src([
         //TODO: insert before plugins load
-        'app/css/plugins/jquery.scrollbar.styl',
+        'app/css/plugins/jquery.scrollbar.sass',
 
-        'app/css/reset.styl',
-        'app/css/grid.styl',
-        'app/css/fonts.styl',
-        'app/css/style.styl',
+        'app/css/reset.sass',
+        'app/css/grid.scss',
+        'app/css/fonts.scss',
+        'app/css/style.sass',
 
         //TODO: example
-        'app/css/example.styl',
+        'app/css/example.sass',
     ])
-        .pipe(concat('main.styl'))
-        .pipe(stylus())
+        .pipe(sass())
+        .pipe(concat('main.css'))
         .pipe(cleanCSS())
         .pipe(rename('main.min.css'))
         .pipe(gulp.dest('css'));
@@ -232,7 +220,6 @@ const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 const svgFonts = gulp.parallel(svg2Fonts);
 const ttf2woff = gulp.parallel(ttf2woffAll);
-const make_grid = gulp.parallel(makeGrid);
 
 
 /**
@@ -248,4 +235,3 @@ exports.svg_sprite = svg_sprite;
 exports.webp = webP;
 exports.svg2Fonts = svgFonts;
 exports.ttf2woff = ttf2woff;
-exports.make_grid = make_grid;
