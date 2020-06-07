@@ -26,6 +26,12 @@
   <code>gulp webp</code>
 </pre>
 
+<p>You can make email with https://mjml.io framework:</p>
+<pre>
+  <code>gulp email</code>
+  <code>gulp email_watch</code>
+</pre>
+
 <h2>Grid (Bootstrap 4.0)</h2>
 <table>
     <tr>
