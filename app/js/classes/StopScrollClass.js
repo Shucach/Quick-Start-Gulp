@@ -24,7 +24,7 @@ export default class StopScroll {
         if (window.addEventListener) {
             window.addEventListener('DOMMouseScroll', self.wheel);
         }
-        window.addEventListener('mousewheel', self.wheel, { passive: false });
+        window.addEventListener('wheel', self.wheel, { passive: false });
         document.onkeydown = self.keydown;
 
         //Mobile
@@ -42,7 +42,7 @@ export default class StopScroll {
         });
 
         //Desktop
-        $(window).bind('mousewheel.fixed.popup', function(e) {
+        $(window).bind('wheel.fixed.popup', function(e) {
             if (e.originalEvent.deltaY < 0) {
                 window.direction = 'up';
             } else if (e.originalEvent.deltaY > 0) {
@@ -66,8 +66,8 @@ export default class StopScroll {
         if (window.removeEventListener) {
             window.removeEventListener('DOMMouseScroll', self.wheel);
         }
-        window.removeEventListener('mousewheel', self.wheel, { passive: true });
-        $(window).unbind('mousewheel.fixed.popup');
+        window.removeEventListener('wheel', self.wheel, { passive: true });
+        $(window).unbind('wheel.fixed.popup');
 
         //Mobile
         window.removeEventListener('touchmove', self.mobileWheel, { passive: false });
