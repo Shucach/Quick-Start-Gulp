@@ -1,0 +1,28 @@
+<mjml>
+  <mj-body>
+
+     <mj-section padding="0" background-color="#263238">
+          <mj-group>
+              <mj-column>
+                 <mj-text>
+                    <a style="color: #fff;text-decoration: none;" href="#">+38 (067) 321 52 41</a>
+                 </mj-text>
+              </mj-column>
+              <mj-column>
+                <mj-text>
+                    <a style="color: #fff;text-decoration: none;" href="#">+38 (067) 321 52 41</a>
+                </mj-text>
+              </mj-column>
+          </mj-group>
+     </mj-section>
+
+     <mj-section padding="0">
+        <mj-column>
+            <mj-text>
+                <h1>Hi there</h1>
+            </mj-text>
+        </mj-column>
+     </mj-section>
+
+  </mj-body>
+</mjml>

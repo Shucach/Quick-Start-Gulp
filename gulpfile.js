@@ -23,6 +23,8 @@ const webp = require('gulp-webp');
 
 const sass = require('gulp-sass');
 
+const mjml = require('gulp-mjml')
+
 /**
  * Style
  */
@@ -133,11 +135,25 @@ function createSvgSprite() {
 }
 
 /**
+ * Create emails
+ * https://mjml.io/
+ */
+function emails() {
+    return gulp.src('email/test-mail.mjml')
+        .pipe(mjml())
+        .pipe(gulp.dest('email/html/'))
+}
+
+/**
  * Watch
  */
 function watchFiles() {
     gulp.watch("app/css/*.styl", style);
     gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
+}
+
+function watchEmail() {
+    gulp.watch(['email/*.mjml'], emails);
 }
 
 /**
@@ -220,6 +236,8 @@ const watch = gulp.parallel(watchFiles);
 const serve = gulp.parallel(browserSyncWatch);
 const svgFonts = gulp.parallel(svg2Fonts);
 const ttf2woff = gulp.parallel(ttf2woffAll);
+const email = gulp.series(emails);
+const email_watch = gulp.parallel(watchEmail);
 
 
 /**
@@ -235,3 +253,5 @@ exports.svg_sprite = svg_sprite;
 exports.webp = webP;
 exports.svg2Fonts = svgFonts;
 exports.ttf2woff = ttf2woff;
+exports.email = email;
+exports.email_watch = email_watch;
