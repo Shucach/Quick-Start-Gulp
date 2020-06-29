@@ -1,6 +1,6 @@
-@import "mixins/grid-framework";
-@import "mixins/breakpoints";
-@import "mixins/grid";
+@import "utils/grid-framework";
+@import "utils/breakpoints";
+@import "utils/grid";
 
 /**
   Change settings if it will be need & run gulp make_grid

@@ -9,6 +9,7 @@ const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
+//const purgecss = require('gulp-purgecss')
 
 const browserSync = require("browser-sync").create();
 const svgSprite = require('gulp-svg-sprite');
@@ -31,15 +32,15 @@ const mjml = require('gulp-mjml')
 function style() {
     return gulp.src([
         //TODO: insert before plugins load
-        'app/css/plugins/jquery.scrollbar.sass',
+        //'app/sass/plugins/jquery.scrollbar.sass',
 
-        'app/css/reset.sass',
-        'app/css/grid.scss',
-        'app/css/fonts.scss',
-        'app/css/style.sass',
+        'app/sass/reset.sass',
+        'app/sass/grid.scss',
+        'app/sass/fonts.scss',
+        'app/sass/style.sass',
 
         //TODO: example
-        'app/css/example.sass',
+        'app/sass/example.sass',
     ])
         .pipe(sass())
         .pipe(concat('main.css'))
@@ -47,7 +48,6 @@ function style() {
         .pipe(rename('main.min.css'))
         .pipe(gulp.dest('css'));
 }
-
 
 /**
  * Scripts
@@ -148,7 +148,7 @@ function emails() {
  * Watch
  */
 function watchFiles() {
-    gulp.watch("app/css/*.styl", style);
+    gulp.watch("app/sass/*.styl", style);
     gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
 }
 
@@ -228,6 +228,7 @@ function ttf2woffFn() {
  */
 const js = gulp.series(scripts);
 const css = gulp.series(style);
+//const purge_css = gulp.series(purgeCss);
 const plugins = gulp.series(jsPlugins);
 const images = gulp.series(imagesMin);
 const svg_sprite = gulp.series(createSvgSprite);
@@ -245,6 +246,7 @@ const email_watch = gulp.parallel(watchEmail);
  */
 exports.js = js;
 exports.css = css;
+//exports.purge_css = purge_css;
 exports.plugins = plugins;
 exports.images = images;
 exports.watch = watch;
