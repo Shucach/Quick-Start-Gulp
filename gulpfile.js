@@ -36,6 +36,7 @@ function style() {
 
         'app/sass/reset.sass',
         'app/sass/grid.scss',
+        'app/sass/core.sass',
         'app/sass/fonts.scss',
         'app/sass/style.sass',
 
@@ -166,7 +167,7 @@ function browserSyncWatch() {
         }
     });
 
-    let st = gulp.watch("app/css/*.styl", style),
+    let st = gulp.watch(["app/sass/*.sass", "app/sass/*.scss"], style),
         js = gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
 
     st.on('change', function(){

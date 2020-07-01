@@ -1,36 +1,73 @@
 import StopScroll from "./StopScrollClass";
+import JSHelpers from "./JSHelpersClass";
 
-export default class Utils {
+export default class Utils extends JSHelpers {
+
+    constructor() {
+        super()
+        this.tabsInit();
+        this.toggleInit();
+    }
+
     /**
      * Tabs
      */
-    static tabsInit() {
-        let $tabs = $('.tabs_wrap');
+    tabsInit() {
+        let self = this,
+            speed = 200,
+            $tabs = document.getElementsByClassName('tabs_wrap');
 
-        $tabs.find('.tab_header').on('click', '.tab_menu:not(.active)', function () {
-            let $this = $(this),
-                idContent = $(this).attr('data-id');
+        for (let i = 0; i < $tabs.length; i++) {
+            let $menus = $tabs[i].getElementsByClassName('tab_menu')
+            for (let i = 0; i < $menus.length; i++) {
+                $menus[i].addEventListener("click", function() {
+                    if(this.classList.contains('active')) return;
 
-            if(!idContent) {
-                console.warn('Please set data-id');
-                return false;
+                    let $tabMenu = this,
+                        dataID = this.getAttribute('data-id'),
+                        $contentShow = document.getElementById(dataID);
+
+
+                    //Add active class
+                    $tabMenu.parentNode.getElementsByClassName('active')[0].classList.remove('active');
+                    $tabMenu.classList.add('active');
+
+                    //Siblings elements
+                    let allSibling = self.getSiblings($contentShow.parentNode.childNodes);
+
+                    //Move to opacity 0 all elements
+                    for (let i = 0; i < allSibling.length; i++) {
+                        if(allSibling[i].getAttribute('id') !== dataID) {
+                            allSibling[i].classList.add('tab_fade_out');
+                        }
+                    }
+
+                    //Start show new elements
+                    setTimeout(function () {
+                        for (let i = 0; i < allSibling.length; i++) {
+                            if(allSibling[i].getAttribute('id') !== dataID) {
+                                allSibling[i].style.display = 'none';
+                                allSibling[i].classList.remove('tab_fade_out');
+                            }
+                        }
+
+                        $contentShow.classList.add('tab_fade_in');
+                        $contentShow.removeAttribute('style');
+
+                        setTimeout(function () {
+                            $contentShow.classList.remove('tab_fade_in');
+                        }, speed);
+                    }, speed - 20);
+                });
             }
-
-            let $content = $(this).closest('.tabs_wrap').find('.tab_content');
-            $content.find(' > div:not('+ idContent +')').fadeOut(200, function () {
-                $content.find(idContent).fadeIn(200);
-                $this.closest('.tab_header').find('.tab_menu').removeClass('active');
-                $this.addClass('active');
-            })
-
-        })
+        }
     }
 
     /**
      * Toggles slide
      * TODO: option for auto close open tab
      */
-    static toggleInit() {
+    toggleInit() {
         let $toggle = $('.toggle_wrap');
 
         $toggle.each(function () {
