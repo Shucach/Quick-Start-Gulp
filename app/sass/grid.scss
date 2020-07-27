@@ -1,34 +1,7 @@
+@import "utils/variables";
 @import "utils/grid-framework";
 @import "utils/breakpoints";
 @import "utils/grid";
-
-/**
-  Change settings if it will be need & run gulp make_grid
- */
-
-$enable-grid-classes: true !default;
-$grid-columns:      12;
-$grid-gutter-width: 30px;
-
-$grid-breakpoints: (
-  // Extra small screen / phone
-  xs: 0,
-  // Small screen / phone
-  sm: 576px,
-  // Medium screen / tablet
-  md: 768px,
-  // Large screen / desktop
-  lg: 992px,
-  // Extra large screen / wide desktop
-  xl: 1200px
-);
-
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1180px
-);
 
 // Container widths
 //
@@ -82,3 +55,9 @@ $container-max-widths: (
 @if $enable-grid-classes {
   @include make-grid-columns();
 }
+
+//Flex
+@import "utils/flex";
+
+//Display
+@import "utils/display";

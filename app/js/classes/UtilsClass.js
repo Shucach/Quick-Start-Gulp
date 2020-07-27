@@ -7,14 +7,20 @@ export default class Utils extends JSHelpers {
         super()
         this.tabsInit();
         this.toggleInit();
+        this.fadePopup();
+        this.customSelect();
+        this.supportsWebp();
+
+        this.lazy();
     }
 
     /**
      * Tabs
      */
     tabsInit() {
+        const speed = 200;
+
         let self = this,
-            speed = 200,
             $tabs = document.getElementsByClassName('tabs_wrap');
 
         for (let i = 0; i < $tabs.length; i++) {
@@ -66,6 +72,7 @@ export default class Utils extends JSHelpers {
     /**
      * Toggles slide
      * TODO: option for auto close open tab
+     * TODO: mover to JS
      */
     toggleInit() {
         let $toggle = $('.toggle_wrap');
@@ -83,8 +90,9 @@ export default class Utils extends JSHelpers {
      * Triggers:
      *   Open popup: $(document).trigger('trigger.show.popup', ['#id_popup', '.scrollClass', 'focusNameInput']);
      *   Position all popups: $(document).trigger('trigger.position.all.popups');
+     * TODO: move to JS
      */
-    static fadePopup() {
+    fadePopup() {
         let $overlayPage = $('.overlay_page'),
             $popups = $('.wrap_popup');
 
@@ -194,7 +202,7 @@ export default class Utils extends JSHelpers {
      * Custom select actions
      * Idea from: https://m.habr.com/ru/post/491000/
      */
-    static customSelect() {
+    customSelect() {
         let selectSingle = document.querySelector('.custom_select');
         let selectSingle_title = selectSingle.querySelector('.select_title');
         let selectSingle_labels = selectSingle.querySelectorAll('.select_label');
@@ -227,11 +235,11 @@ export default class Utils extends JSHelpers {
      * Check webp
      * @returns {*}
      */
-    static supportsWebp() {
-        if (!self.createImageBitmap) {
-            $('html').addClass('no-webp');
-            return false;
-        }
+    supportsWebp() {
+        if (!self.createImageBitmap) return false;
+
+        const iOS = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+        if(iOS) return false;
 
         const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
         const blob = fetch(webpData).then(r => r.blob());
@@ -245,7 +253,7 @@ export default class Utils extends JSHelpers {
     /**
      * https://github.com/aFarkas/lazysizes
      */
-    static lazy() {
+    lazy() {
         //if ('loading' in HTMLImageElement.prototype) {
         //TODO: load all images. Try nex time
         // const images = document.querySelectorAll('img[loading="lazy"]');
