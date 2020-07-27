@@ -1,0 +1,45 @@
+//FadeOut
+$prefix: '-moz-', '-webkit-', ''
+@mixin keyframe-fadeOut
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+@-moz-keyframes fadeOut
+  @include keyframe-fadeOut
+
+@-webkit-keyframes fadeOut
+  @include keyframe-fadeOut
+
+@keyframes fadeOut
+  @include keyframe-fadeOut
+
+@mixin fadeOut( $arg )
+  $keyframe-name: fadeOut
+  $duration: $arg
+  @each $p in $prefix
+    #{$p}animation: $keyframe-name $duration
+
+//FadeIn
+$prefix: '-moz-', '-webkit-', ''
+@mixin keyframe-fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+@-moz-keyframes fadeIn
+  @include keyframe-fadeIn
+
+@-webkit-keyframes fadeIn
+  @include  keyframe-fadeIn
+
+@keyframes fadeIn
+  @include keyframe-fadeIn
+
+@mixin fadeIn( $arg )
+  $keyframe-name: fadeIn
+  $duration: $arg
+  @each $p in $prefix
+    #{$p}animation: $keyframe-name $duration
