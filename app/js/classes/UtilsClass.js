@@ -1,80 +1,38 @@
 import StopScroll from "./StopScrollClass";
-import JSHelpers from "./JSHelpersClass";
 
-export default class Utils extends JSHelpers {
-
-    constructor() {
-        super()
-        this.tabsInit();
-        this.toggleInit();
-        this.fadePopup();
-        this.customSelect();
-        this.supportsWebp();
-
-        this.lazy();
-    }
+export default class Utils {
 
     /**
      * Tabs
      */
-    tabsInit() {
-        const speed = 200;
+    static tabsInit() {
+        const $tabs = $('.tabs_wrap'),
+              speed = 200;
 
-        let self = this,
-            $tabs = document.getElementsByClassName('tabs_wrap');
+        $tabs.find('.tab_header').on('click', '.tab_menu:not(.active)', function () {
+            let $this = $(this),
+                idContent = $(this).attr('data-id');
 
-        for (let i = 0; i < $tabs.length; i++) {
-            let $menus = $tabs[i].getElementsByClassName('tab_menu')
-            for (let i = 0; i < $menus.length; i++) {
-                $menus[i].addEventListener("click", function() {
-                    if(this.classList.contains('active')) return;
-
-                    let $tabMenu = this,
-                        dataID = this.getAttribute('data-id'),
-                        $contentShow = document.getElementById(dataID);
-
-
-                    //Add active class
-                    $tabMenu.parentNode.getElementsByClassName('active')[0].classList.remove('active');
-                    $tabMenu.classList.add('active');
-
-                    //Siblings elements
-                    let allSibling = self.getSiblings($contentShow.parentNode.childNodes);
-
-                    //Move to opacity 0 all elements
-                    for (let i = 0; i < allSibling.length; i++) {
-                        if(allSibling[i].getAttribute('id') !== dataID) {
-                            allSibling[i].classList.add('tab_fade_out');
-                        }
-                    }
-
-                    //Start show new elements
-                    setTimeout(function () {
-                        for (let i = 0; i < allSibling.length; i++) {
-                            if(allSibling[i].getAttribute('id') !== dataID) {
-                                allSibling[i].style.display = 'none';
-                                allSibling[i].classList.remove('tab_fade_out');
-                            }
-                        }
-
-                        $contentShow.classList.add('tab_fade_in');
-                        $contentShow.removeAttribute('style');
-
-                        setTimeout(function () {
-                            $contentShow.classList.remove('tab_fade_in');
-                        }, speed);
-                    }, speed - 20);
-                });
+            if(!idContent) {
+                console.warn('Please set data-id');
+                return false;
             }
-        }
+
+            let $content = $(this).closest('.tabs_wrap').find('.tab_content');
+            $content.find(' > div:not('+ idContent +')').fadeOut(speed, function () {
+                $content.find(idContent).fadeIn(speed);
+                $this.closest('.tab_header').find('.tab_menu').removeClass('active');
+                $this.addClass('active');
+            })
+
+        })
     }
 
     /**
      * Toggles slide
      * TODO: option for auto close open tab
-     * TODO: mover to JS
      */
-    toggleInit() {
+    static toggleInit() {
         let $toggle = $('.toggle_wrap');
 
         $toggle.each(function () {
@@ -90,9 +48,8 @@ export default class Utils extends JSHelpers {
      * Triggers:
      *   Open popup: $(document).trigger('trigger.show.popup', ['#id_popup', '.scrollClass', 'focusNameInput']);
      *   Position all popups: $(document).trigger('trigger.position.all.popups');
-     * TODO: move to JS
      */
-    fadePopup() {
+    static fadePopup() {
         let $overlayPage = $('.overlay_page'),
             $popups = $('.wrap_popup');
 
@@ -202,7 +159,7 @@ export default class Utils extends JSHelpers {
      * Custom select actions
      * Idea from: https://m.habr.com/ru/post/491000/
      */
-    customSelect() {
+    static customSelect() {
         let selectSingle = document.querySelector('.custom_select');
         let selectSingle_title = selectSingle.querySelector('.select_title');
         let selectSingle_labels = selectSingle.querySelectorAll('.select_label');
@@ -235,7 +192,7 @@ export default class Utils extends JSHelpers {
      * Check webp
      * @returns {*}
      */
-    supportsWebp() {
+    static supportsWebp() {
         if (!self.createImageBitmap) return false;
 
         const iOS = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
@@ -253,7 +210,7 @@ export default class Utils extends JSHelpers {
     /**
      * https://github.com/aFarkas/lazysizes
      */
-    lazy() {
+    static lazy() {
         //if ('loading' in HTMLImageElement.prototype) {
         //TODO: load all images. Try nex time
         // const images = document.querySelectorAll('img[loading="lazy"]');
