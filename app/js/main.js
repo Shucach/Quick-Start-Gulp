@@ -16,13 +16,14 @@
 //Classes type
 import Utils from './classes/UtilsClass';
 import CountdownTimer from './modules/CountdownTimerClass';
-new Utils();
 
-// Utils.supportsWebp();
-// Utils.tabsInit();
-// Utils.toggleInit();
-// Utils.fadePopup();
-// Utils.customSelect();
+Utils.tabsInit();
+Utils.toggleInit();
+Utils.fadePopup();
+Utils.customSelect();
+Utils.supportsWebp();
+Utils.lazy();
+
 new CountdownTimer('Jan 5, 2021 15:37:25', '#demo-countdown-timer');
 
 class Person {
@@ -49,7 +50,6 @@ $('.trigger-open-popup').on('click', function (e) {
     e.preventDefault();
     $(document).trigger('trigger.show.popup', ['#popup_1', '.custom-scrollbar', 'name']);
 });
-
 
 /**
  * Scrollbar

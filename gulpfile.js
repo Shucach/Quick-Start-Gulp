@@ -36,7 +36,6 @@ function style() {
 
         'app/sass/reset.sass',
         'app/sass/grid.scss',
-        'app/sass/core.sass',
         'app/sass/fonts.scss',
         'app/sass/style.sass',
 
