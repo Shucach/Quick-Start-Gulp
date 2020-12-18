@@ -149,7 +149,7 @@ function emails() {
  * Watch
  */
 function watchFiles() {
-    gulp.watch("app/sass/*.styl", style);
+    gulp.watch(["app/sass/*.sass", "app/sass/*.scss"], style);
     gulp.watch(["app/js/*.js", "app/js/classes/*.js", "app/js/modules/*.js"], scripts);
 }
 
