@@ -5,12 +5,13 @@ export default class StopScroll {
      * @param el
      * @param wrapClass
      * @param scrollClass - we can skip this class is if wrapClass will be scroll area
-     * version 0.2
+     * version 1.0.1
      */
     constructor (el, wrapClass, scrollClass) {
         window.stElement = el;
         window.wrapClass = wrapClass;
         window.scrollClass = scrollClass;
+        window.ts = '';
         window.direction = '';
     }
 
@@ -20,40 +21,24 @@ export default class StopScroll {
     disableScroll() {
         let self  = this;
 
-        //Desktop
+        // Desktop
         if (window.addEventListener) {
             window.addEventListener('DOMMouseScroll', self.wheel);
         }
         window.addEventListener('wheel', self.wheel, { passive: false });
         document.onkeydown = self.keydown;
 
-        //Mobile
-        let ts;
-        $(window).bind('touchstart.fixed.popup', function (e){
-            ts = e.originalEvent.touches[0].clientY;
-        });
-        $(window).bind('touchmove.fixed.popup', function(e) {
-            let te = e.originalEvent.changedTouches[0].clientY;
-            if(ts > te + 5){
-                window.direction = 'down';
-            } else if(ts < te - 5){
-                window.direction = 'up';
-            }
-        });
+        // Mobile
+        window.addEventListener('touchstart', self.__touchstart, { passive: false });
 
-        //Desktop
-        $(window).bind('wheel.fixed.popup', function(e) {
-            if (e.originalEvent.deltaY < 0) {
-                window.direction = 'up';
-            } else if (e.originalEvent.deltaY > 0) {
-                window.direction = 'down';
-            }
-        });
-
-        //-webkit-overflow-scrolling touch
-        //Need add padding bottom for some blocks for phones 80px
-        //window.addEventListener('touchmove', self.mobileWheel, { passive: false });
+        // -webkit-overflow-scrolling touch
+        // Need add padding bottom for some blocks for phones 80px
+        // window.addEventListener('touchmove', self.mobileWheel, { passive: false });
         window.addEventListener('touchmove', self.mobileWheel, { passive: false });
+    }
+
+    __touchstart(e) {
+        window.ts = e.touches[0].clientY;
     }
 
     /**
@@ -62,18 +47,14 @@ export default class StopScroll {
     enableScroll() {
         let self  = this;
 
-        //Desktop
+        // Desktop
         if (window.removeEventListener) {
             window.removeEventListener('DOMMouseScroll', self.wheel);
         }
         window.removeEventListener('wheel', self.wheel, { passive: true });
-        $(window).unbind('wheel.fixed.popup');
 
-        //Mobile
+        // Mobile
         window.removeEventListener('touchmove', self.mobileWheel, { passive: false });
-        $(window).unbind('touchstart.fixed.popup');
-        $(window).unbind('touchmove.fixed.popup');
-
     }
 
     /**
@@ -81,12 +62,20 @@ export default class StopScroll {
      * @param e
      */
     wheel(e) {
-        if(window.stElement[0] === $(e.target).closest(window.wrapClass)[0] || window.stElement[0] === $(e.target)[0]) {
-            let element = ($(window.stElement).find(window.scrollClass).last()[0]) ? $(window.stElement).find(window.scrollClass).last()[0] : $(window.stElement)[0],
-                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
+        // Direction
+        if (e.deltaY < 0) {
+            window.direction = 'up';
+        } else if (e.deltaY > 0) {
+            window.direction = 'down';
+        }
+
+        // NOTE: window.stElement[0] - not sure if it will be ok if use clear js. check
+        if(window.stElement[0] === e.target.closest(window.wrapClass) || window.stElement[0] === e.target) {
+            let element = (window.stElement[0].querySelector(window.scrollClass)) ? window.stElement[0].querySelector(window.scrollClass) : window.stElement[0],
+                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) <= element.clientHeight,
                 scrollTop = element.scrollTop;
 
-            if(scrollTop === 0 && scrollHeight && window.direction === 'up' ||
+            if (scrollTop === 0 && scrollHeight && window.direction === 'up' ||
                 scrollTop === 0 && window.direction === 'up' ||
                 scrollHeight && window.direction === 'down') {
                 e.preventDefault();
@@ -101,9 +90,17 @@ export default class StopScroll {
      * @param e
      */
     mobileWheel(e) {
-        if(window.stElement[0] === $(e.target).closest(window.wrapClass)[0] || window.stElement[0] === $(e.target)[0]) {
-            let element = ($(window.stElement).find(window.scrollClass)[0]) ? $(window.stElement).find(window.scrollClass)[0] : $(window.stElement)[0],
-                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) === element.clientHeight,
+        // Direction
+        let te = e.changedTouches[0].clientY;
+        if(window.ts > te + 5) {
+            window.direction = 'down';
+        } else if(ts < te - 5){
+            window.direction = 'up';
+        }
+
+        if(window.stElement[0] === e.target.closest(window.wrapClass) || window.stElement[0] === e.target) {
+            let element = (window.stElement[0].querySelector(window.scrollClass)) ?window.stElement[0].querySelector(window.scrollClass) : window.stElement,
+                scrollHeight = Math.round(element.scrollHeight - element.scrollTop) <= element.clientHeight,
                 scrollTop = element.scrollTop;
 
             if(scrollTop === 0 && scrollHeight && window.direction === 'up' ||
