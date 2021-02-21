@@ -24,7 +24,9 @@ const webp = require('gulp-webp');
 
 const sass = require('gulp-sass');
 
-const mjml = require('gulp-mjml')
+const mjml = require('gulp-mjml');
+
+const builderFolder = 'dist';
 
 /**
  * Style
@@ -47,7 +49,7 @@ function style() {
         .pipe(concat('main.css'))
         .pipe(cleanCSS())
         .pipe(rename('main.min.css'))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(builderFolder + '/css'));
 }
 
 /**
@@ -59,7 +61,7 @@ function scripts() {
     ])
         .pipe(webpack({
             // 'development' or 'production'
-            mode: 'production',
+            mode: 'development',
             devtool: 'source-map',
             output: {
                 filename: '[name].js',
@@ -76,7 +78,7 @@ function scripts() {
                 ]
             }
         }))
-        .pipe(gulp.dest('js/'));
+        .pipe(gulp.dest(builderFolder + '/js'));
 }
 
 /**
@@ -91,7 +93,7 @@ function jsPlugins() {
     .pipe(concat('main.plugin.js'))
     .pipe(rename('plugins.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('js'));
+    .pipe(gulp.dest(builderFolder + '/js'));
 }
 
 /**
@@ -107,7 +109,7 @@ function imagesMin() {
                 })
             ])
         )
-        .pipe(gulp.dest("images"));
+        .pipe(gulp.dest(builderFolder + '/images'));
 }
 
 /**
@@ -116,7 +118,7 @@ function imagesMin() {
 function imageToWebP() {
     return gulp.src('app/images/to_webp/*')
         .pipe(webp({quality: 85}))
-        .pipe(gulp.dest('images/webp'))
+        .pipe(gulp.dest(builderFolder + '/images/webp'))
 }
 
 /**
@@ -132,7 +134,7 @@ function createSvgSprite() {
                 },
             }
         ))
-        .pipe(gulp.dest('images'));
+        .pipe(gulp.dest(builderFolder + '/images'));
 }
 
 /**
@@ -142,7 +144,7 @@ function createSvgSprite() {
 function emails() {
     return gulp.src('email/test-mail.mjml')
         .pipe(mjml())
-        .pipe(gulp.dest('email/html/'))
+        .pipe(gulp.dest(builderFolder + '/email/html/'))
 }
 
 /**
@@ -163,7 +165,7 @@ function watchEmail() {
 function browserSyncWatch() {
     browserSync.init({
         server: {
-            baseDir: "./"
+            baseDir: builderFolder + "/"
         }
     });
 
@@ -177,7 +179,7 @@ function browserSyncWatch() {
         browserSync.reload();
     });
 
-    gulp.watch("./*.html").on('change', browserSync.reload);
+    gulp.watch(builderFolder + "/*.html").on('change', browserSync.reload);
 }
 
 /**
@@ -198,7 +200,7 @@ function svg2Fonts() {
             formats: ['woff', 'woff2'],
             normalize: true
         }))
-        .pipe(gulp.dest('fonts/svg-fonts/'));
+        .pipe(gulp.dest(builderFolder + '/fonts/svg-fonts'));
 }
 
 /**
@@ -215,12 +217,12 @@ function ttf2woffAll() {
 function ttf2woff2Fn() {
     return gulp.src(['app/fontsTTF/*.ttf'])
         .pipe(ttf2woff2p())
-        .pipe(gulp.dest('fonts/convert-fonts/'));
+        .pipe(gulp.dest(builderFolder + '/fonts/convert-fonts'));
 }
 function ttf2woffFn() {
     return gulp.src(['app/fontsTTF/*.ttf'])
         .pipe(ttf2woffp())
-        .pipe(gulp.dest('fonts/convert-fonts/'));
+        .pipe(gulp.dest(builderFolder + '/fonts/convert-fonts'));
 }
 
 
