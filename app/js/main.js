@@ -22,6 +22,7 @@ const utilsObj = new UtilsClass();
 
 utilsObj.tabsInit();
 utilsObj.toggleInit();
+utilsObj.fadePopup();
 
 new CountdownTimer('Jan 5, 2025 15:37:25', '#demo-countdown-timer');
 

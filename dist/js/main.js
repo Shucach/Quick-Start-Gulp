@@ -160,7 +160,7 @@ var StopScroll = /*#__PURE__*/function () {
    * @param el
    * @param wrapClass
    * @param scrollClass - we can skip this class is if wrapClass will be scroll area
-   * version 1.0.1
+   * version 1.1.0
    */
   function StopScroll(el, wrapClass, scrollClass) {
     _classCallCheck(this, StopScroll);
@@ -170,6 +170,7 @@ var StopScroll = /*#__PURE__*/function () {
     window.scrollClass = scrollClass;
     window.ts = '';
     window.direction = '';
+    window.scrollTop = 0;
   }
   /**
    * Fixed all scroll types except scroll inside selected block
@@ -188,7 +189,11 @@ var StopScroll = /*#__PURE__*/function () {
       window.addEventListener('wheel', self.wheel, {
         passive: false
       });
-      document.onkeydown = self.keydown; // Mobile
+      window.addEventListener('scroll', self.mouseDrug, {
+        passive: false
+      });
+      document.onkeydown = self.keydown;
+      window.scrollTop = window.scrollY; // Mobile
 
       window.addEventListener('touchstart', self.__touchstart, {
         passive: false
@@ -220,6 +225,9 @@ var StopScroll = /*#__PURE__*/function () {
 
       window.removeEventListener('wheel', self.wheel, {
         passive: true
+      });
+      window.removeEventListener('scroll', self.mouseDrug, {
+        passive: true
       }); // Mobile
 
       window.removeEventListener('touchmove', self.mobileWheel, {
@@ -232,6 +240,12 @@ var StopScroll = /*#__PURE__*/function () {
      */
 
   }, {
+    key: "mouseDrug",
+    value: function mouseDrug(e) {
+      e.preventDefault();
+      window.scrollTo(0, window.scrollTop);
+    }
+  }, {
     key: "wheel",
     value: function wheel(e) {
       // Direction
@@ -239,8 +253,7 @@ var StopScroll = /*#__PURE__*/function () {
         window.direction = 'up';
       } else if (e.deltaY > 0) {
         window.direction = 'down';
-      } // NOTE: window.stElement[0] - not sure if it will be ok if use clear js. check
-
+      }
 
       if (window.stElement[0] === e.target.closest(window.wrapClass) || window.stElement[0] === e.target) {
         var element = window.stElement[0].querySelector(window.scrollClass) ? window.stElement[0].querySelector(window.scrollClass) : window.stElement[0],
@@ -668,6 +681,7 @@ __webpack_require__.r(__webpack_exports__);
 var utilsObj = new _classes_UtilsClass__WEBPACK_IMPORTED_MODULE_0__["default"]();
 utilsObj.tabsInit();
 utilsObj.toggleInit();
+utilsObj.fadePopup();
 new _modules_CountdownTimerClass__WEBPACK_IMPORTED_MODULE_1__["default"]('Jan 5, 2025 15:37:25', '#demo-countdown-timer');
 
 if ($('body').length) {
