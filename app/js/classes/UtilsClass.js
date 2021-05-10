@@ -3,17 +3,6 @@ import JSHelpers from "./JSHelpersClass";
 
 export default class Utils extends JSHelpers {
 
-    constructor() {
-        super()
-        this.tabsInit();
-        this.toggleInit();
-        this.fadePopup();
-        this.customSelect();
-        this.supportsWebp();
-
-        this.lazy();
-    }
-
     /**
      * Tabs
      */
@@ -71,18 +60,35 @@ export default class Utils extends JSHelpers {
 
     /**
      * Toggles slide
-     * TODO: option for auto close open tab
-     * TODO: mover to JS
      */
     toggleInit() {
-        let $toggle = $('.toggle_wrap');
+        let $toggleWrap = document.getElementsByClassName('toggle-wrap');
 
-        $toggle.each(function () {
-            $(this).find('.toggle_header').on('click', function () {
-                $(this).siblings('.toggle_content').slideToggle(200);
-                $(this).toggleClass('active');
-            });
-        });
+        for (let i = 0; i < $toggleWrap.length; i++) {
+            let $thisToggleWrap = $toggleWrap[i],
+                $thisHeader = $thisToggleWrap.querySelectorAll('.toggle-wrap__header');
+
+            for (let i = 0; i < $thisHeader.length; i++) {
+                $thisHeader[i].addEventListener("click", function() {
+                    if (this.classList.contains('active')) return;
+
+                    let $thisTab = this;
+
+                    //Remove all old active
+                    let $oldActiveEl = $thisTab.parentNode.parentNode.querySelectorAll('.toggle-wrap__header.active');
+                    for (let i = 0; i < $oldActiveEl.length; i++) {
+                        $oldActiveEl[i].classList.remove('active');
+                        $oldActiveEl[i].nextElementSibling.classList.remove('open');
+                        $oldActiveEl[i].nextElementSibling.style.height = '0px';
+                    }
+
+                    $thisTab.classList.add('active');
+                    $thisTab.nextElementSibling.classList.add('open');
+                    let heightThisContent = $thisTab.nextElementSibling.firstElementChild.clientHeight;
+                    $thisTab.nextElementSibling.style.height = heightThisContent + 'px';
+                });
+            }
+        }
     }
 
     /**

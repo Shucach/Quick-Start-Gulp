@@ -14,29 +14,16 @@
  */
 
 //Classes type
-import Utils from './classes/UtilsClass';
+import UtilsClass from './classes/UtilsClass';
 import CountdownTimer from './modules/CountdownTimerClass';
-new Utils();
 
-// Utils.supportsWebp();
-// Utils.tabsInit();
-// Utils.toggleInit();
-// Utils.fadePopup();
-// Utils.customSelect();
+
+const utilsObj = new UtilsClass();
+
+utilsObj.tabsInit();
+utilsObj.toggleInit();
+
 new CountdownTimer('Jan 5, 2025 15:37:25', '#demo-countdown-timer');
-
-class Person {
-    constructor (name, age) {
-        this.name = name;
-        this.age = age;
-    }
-    seyHi() {
-        console.log('ES6 the best');
-        console.log('Hi ' + this.name + ' your age is ' + this.age);
-    }
-}
-const person = new Person('Harry', 0);
-person.seyHi();
 
 if($('body').length) {
     console.log('Support jQuery');

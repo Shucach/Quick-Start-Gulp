@@ -349,33 +349,17 @@ var Utils = /*#__PURE__*/function (_JSHelpers) {
   var _super = _createSuper(Utils);
 
   function Utils() {
-    var _this;
-
     _classCallCheck(this, Utils);
 
-    _this = _super.call(this);
-
-    _this.tabsInit();
-
-    _this.toggleInit();
-
-    _this.fadePopup();
-
-    _this.customSelect();
-
-    _this.supportsWebp();
-
-    _this.lazy();
-
-    return _this;
+    return _super.apply(this, arguments);
   }
-  /**
-   * Tabs
-   */
-
 
   _createClass(Utils, [{
     key: "tabsInit",
+
+    /**
+     * Tabs
+     */
     value: function tabsInit() {
       var speed = 200;
       var self = this,
@@ -424,20 +408,39 @@ var Utils = /*#__PURE__*/function (_JSHelpers) {
     }
     /**
      * Toggles slide
-     * TODO: option for auto close open tab
-     * TODO: mover to JS
      */
 
   }, {
     key: "toggleInit",
     value: function toggleInit() {
-      var $toggle = $('.toggle_wrap');
-      $toggle.each(function () {
-        $(this).find('.toggle_header').on('click', function () {
-          $(this).siblings('.toggle_content').slideToggle(200);
-          $(this).toggleClass('active');
-        });
-      });
+      var $toggleWrap = document.getElementsByClassName('toggle-wrap');
+
+      for (var i = 0; i < $toggleWrap.length; i++) {
+        var $thisToggleWrap = $toggleWrap[i],
+            $thisHeader = $thisToggleWrap.querySelectorAll('.toggle-wrap__header');
+
+        for (var _i4 = 0; _i4 < $thisHeader.length; _i4++) {
+          $thisHeader[_i4].addEventListener("click", function () {
+            if (this.classList.contains('active')) return;
+            var $thisTab = this; //Remove all old active
+
+            var $oldActiveEl = $thisTab.parentNode.parentNode.querySelectorAll('.toggle-wrap__header.active');
+
+            for (var _i5 = 0; _i5 < $oldActiveEl.length; _i5++) {
+              $oldActiveEl[_i5].classList.remove('active');
+
+              $oldActiveEl[_i5].nextElementSibling.classList.remove('open');
+
+              $oldActiveEl[_i5].nextElementSibling.style.height = '0px';
+            }
+
+            $thisTab.classList.add('active');
+            $thisTab.nextElementSibling.classList.add('open');
+            var heightThisContent = $thisTab.nextElementSibling.firstElementChild.clientHeight;
+            $thisTab.nextElementSibling.style.height = heightThisContent + 'px';
+          });
+        }
+      }
     }
     /**
      * Open|close fade popup
@@ -660,43 +663,12 @@ __webpack_require__.r(__webpack_exports__);
  */
 //Classes type
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
-
-new _classes_UtilsClass__WEBPACK_IMPORTED_MODULE_0__["default"](); // Utils.supportsWebp();
-// Utils.tabsInit();
-// Utils.toggleInit();
-// Utils.fadePopup();
-// Utils.customSelect();
-
+var utilsObj = new _classes_UtilsClass__WEBPACK_IMPORTED_MODULE_0__["default"]();
+utilsObj.tabsInit();
+utilsObj.toggleInit();
 new _modules_CountdownTimerClass__WEBPACK_IMPORTED_MODULE_1__["default"]('Jan 5, 2025 15:37:25', '#demo-countdown-timer');
-
-var Person = /*#__PURE__*/function () {
-  function Person(name, age) {
-    _classCallCheck(this, Person);
-
-    this.name = name;
-    this.age = age;
-  }
-
-  _createClass(Person, [{
-    key: "seyHi",
-    value: function seyHi() {
-      console.log('ES6 the best');
-      console.log('Hi ' + this.name + ' your age is ' + this.age);
-    }
-  }]);
-
-  return Person;
-}();
-
-var person = new Person('Harry', 0);
-person.seyHi();
 
 if ($('body').length) {
   console.log('Support jQuery');

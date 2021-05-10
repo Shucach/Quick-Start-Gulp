@@ -1,6 +1,7 @@
 //This file contain main style for core.
 
   1. Tabs
+  2. Toggle
 
 //------------------------------------
 @import "utils/animations"
@@ -10,3 +11,10 @@
   @include fadeOut( .2s )
 .tab_fade_in
   @include fadeIn( .2s )
+
+// 2. Toggle
+.toggle-wrap
+  &__content
+    height: 0
+    overflow: hidden
+    transition: .2s all
